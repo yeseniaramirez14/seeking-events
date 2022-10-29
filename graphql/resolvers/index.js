@@ -2,15 +2,19 @@ const Organization = require('../../models/organization')
 const Location = require('../../models/location') 
 const Event = require('../../models/event') 
 
+const transformOrg = org => {
+    return { 
+        ...org._doc,
+        createdAt: new Date(org._doc.createdAt).toISOString(),
+        createdLocations: locations.bind(this, org._doc.createdLocations)
+    };
+}
+
 
 const organization = async organizationId => {
     try {
         const organization = await Organization.findById(organizationId)
-            return { 
-                ...organization._doc,
-                createdAt: new Date(organization._doc.createdAt).toISOString(),
-                createdLocations: locations.bind(this, organization._doc.createdLocations)
-            };
+            return transformOrg(organization);
         } catch (err) {
             throw err;
         }
@@ -19,14 +23,13 @@ const organization = async organizationId => {
 const locations = async locationIds => {
     try {
         const locations = await Location.find({_id: {$in: locationIds}})
-        locations.map(loc => {
+        return locations.map(loc => {
             return { 
                 ...loc._doc, 
                 createdAt: new Date(loc._doc.createdAt).toISOString(),
                 createdBy: organization.bind(this, loc.createdBy)
             };
         });
-        return locations;
     } catch (err) {
         throw err;
     }
@@ -53,6 +56,7 @@ module.exports = {
                 return { 
                     ...org._doc,
                     createdAt: new Date(org._doc.createdAt).toISOString(),
+                    updatedAt: new Date(org._doc.updatedAt).toISOString(),
                 };
             })
         } catch (err) {
@@ -67,6 +71,7 @@ module.exports = {
                 return {
                     ...loc._doc,
                     createdAt: new Date(loc._doc.createdAt).toISOString(),
+                    updatedAt: new Date(loc._doc.updatedAt).toISOString(),
                     createdBy: organization.bind(this, loc._doc.createdBy)
                 };
             })
@@ -93,19 +98,19 @@ module.exports = {
 
     createOrganization: async args => {
         try {
-            const existingOrg = await Organization.findOne({ name: args.organizationInput.name })
+            const existingOrg = await Organization.findOne({ name: args.name })
             if (existingOrg) {
                 throw new Error('Organization already exists.');
             } 
             const organization = new Organization({
-                name: args.organizationInput.name,
-                createdAt: new Date()
+                name: args.name,
             })
     
             const result = await organization.save();
             return {
                 ...result._doc,
                 createdAt: result._doc.createdAt.toISOString(),
+                updatedAt: result._doc.updatedAt.toISOString(),
             } 
         } catch (err) {
             throw err;
@@ -118,15 +123,14 @@ module.exports = {
             address: args.locationInput.address, 
             latitude: args.locationInput.latitude, 
             longitude: args.locationInput.longitude, 
-            createdAt: new Date(), 
             createdBy: '635c74dfd827df257016d544'
         })
-        let createdLocation;
         try {
             const result = await location.save()
-            createdLocation = {
+            let createdLocation = {
                 ...result._doc,
                 createdAt: result._doc.createdAt.toISOString(),
+                updatedAt: result._doc.updatedAt.toISOString(),
                 createdBy: organization.bind(this, result._doc.createdBy) 
             } 
             const createdBy = await Organization.findById('635c74dfd827df257016d544')

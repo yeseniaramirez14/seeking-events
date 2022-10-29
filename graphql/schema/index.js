@@ -4,8 +4,8 @@ module.exports = buildSchema(`
     type Organization {
         _id: ID!
         name: String!
-        createdAt: String
-        updatedAt: String
+        createdAt: String!
+        updatedAt: String!
         createdLocations: [Location!]
     }
 
@@ -15,8 +15,8 @@ module.exports = buildSchema(`
         address: String!
         latitude: String!
         longitude: String!
-        createdAt: String
-        updatedAt: String
+        createdAt: String!
+        updatedAt: String!
         createdBy: Organization!
     }
 
@@ -28,10 +28,6 @@ module.exports = buildSchema(`
         createdAt: String!
         updatedAt: String!
         createdBy: Organization!
-    }
-
-    input OrganizationInput {
-        name: String!
     }
 
     input LocationInput {
@@ -47,11 +43,6 @@ module.exports = buildSchema(`
         description: String!
     }
 
-    input EventFilter {
-        name: String!
-    }
-
-
     type RootQuery {
         organizations: [Organization!]!
         locations: [Location!]!
@@ -59,7 +50,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        createOrganization(organizationInput: OrganizationInput): Organization 
+        createOrganization(name: String!): Organization 
         createLocation(locationInput: LocationInput): Location
         createEvent(eventInput: EventInput): Event
         deleteEvent(_id: ID!): String
@@ -70,5 +61,3 @@ module.exports = buildSchema(`
         mutation: RootMutation
     }
 `)
-
-// deleteEvent(eventId: ID!): Event!
