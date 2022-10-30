@@ -64,9 +64,13 @@ module.exports = {
     },
 
     deleteEvent: async args => {
-        const event = await Event.findById(args._id)
-        const eventName = event.name 
-        await event.deleteOne({_id: args.eventId})
-        return `${eventName} was successfully deleted.`
+        try {
+            const event = await Event.findById(args._id)
+            const transformedEvent = transformEvent(event)            
+            await event.deleteOne({_id: args._id})
+            return transformedEvent
+        } catch (err) {
+            throw err;
+        }
     }
 }

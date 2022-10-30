@@ -74,9 +74,10 @@ module.exports = buildSchema(`
         createOrganization(name: String!): Organization 
         createLocation(locationInput: LocationInput): Location
         updateLocation(locationUpdateInput: LocationUpdateInput): Location
+        deleteLocation(_id: ID!): Location
         createEvent(eventInput: EventInput): Event
         updateEvent(eventUpdateInput: EventUpdateInput): Event
-        deleteEvent(_id: ID!): String
+        deleteEvent(_id: ID!): Event
     }
 
     schema {

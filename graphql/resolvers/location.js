@@ -47,7 +47,7 @@ module.exports = {
     },
 
     updateLocation: async args => {
-        try {
+        try {            
             const location = await Location.findOneAndUpdate(
                 {_id: args.locationUpdateInput._id},
                 {
@@ -59,6 +59,17 @@ module.exports = {
                 {returnDocument: "after"}
             )
             return transformLocation(location)
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    deleteLocation: async args => {
+        try {
+            const location = await Location.findById(args._id)
+            const transformedLocation = transformLocation(location)
+            await location.deleteOne({_id: args._id})
+            return transformedLocation
         } catch (err) {
             throw err;
         }
