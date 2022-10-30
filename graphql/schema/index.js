@@ -54,6 +54,13 @@ module.exports = buildSchema(`
         createdBy: ID!
     }
 
+    input EventUpdateInput {
+        _id: ID!
+        name: String
+        dateTime: String
+        description: String
+    }
+
     type RootQuery {
         organizations: [Organization!]!
         singleOrganization(_id: ID!): Organization
@@ -68,6 +75,7 @@ module.exports = buildSchema(`
         createLocation(locationInput: LocationInput): Location
         updateLocation(locationUpdateInput: LocationUpdateInput): Location
         createEvent(eventInput: EventInput): Event
+        updateEvent(eventUpdateInput: EventUpdateInput): Event
         deleteEvent(_id: ID!): String
     }
 

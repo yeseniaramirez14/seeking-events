@@ -46,6 +46,23 @@ module.exports = {
         }
     },
 
+    updateEvent: async args => {
+        try {
+            const event = await Event.findByIdAndUpdate(
+                {_id: args.eventUpdateInput._id},
+                {
+                    name: args.eventUpdateInput.name,
+                    dateTime: args.eventUpdateInput.dateTime,
+                    description: args.eventUpdateInput.description
+                },
+                {returnDocument: "after"}
+            )
+            return transformEvent(event)
+        } catch (err) {
+            throw err;
+        }
+    },
+
     deleteEvent: async args => {
         const event = await Event.findById(args._id)
         const eventName = event.name 

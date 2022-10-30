@@ -47,7 +47,6 @@ module.exports = {
     },
 
     updateLocation: async args => {
-        console.log("args:", args)
         try {
             const location = await Location.findOneAndUpdate(
                 {_id: args.locationUpdateInput._id},
