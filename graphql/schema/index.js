@@ -52,6 +52,7 @@ module.exports = buildSchema(`
         locations: [Location!]!
         singleLocation(_id: ID!): Location
         events: [Event!]! 
+        singleEvent(_id: ID!): Event
     }
 
     type RootMutation {

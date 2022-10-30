@@ -37,6 +37,15 @@ module.exports = {
         }
     },
 
+    singleEvent: async eventId => {
+        try {
+            const event = await Event.findById(eventId);
+            return transformEvent(event)
+        } catch (err) {
+            throw err;
+        }
+    },
+
     deleteEvent: async args => {
         const event = await Event.findById(args._id)
         const eventName = event.name 
