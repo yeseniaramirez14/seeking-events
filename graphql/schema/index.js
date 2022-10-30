@@ -43,6 +43,7 @@ module.exports = buildSchema(`
         name: String!
         dateTime: String!
         description: String!
+        createdBy: ID!
     }
 
     type RootQuery {

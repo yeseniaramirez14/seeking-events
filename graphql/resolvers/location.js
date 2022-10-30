@@ -16,22 +16,21 @@ module.exports = {
     },
 
     createLocation: async args => {
-        const location = new Location({
-            name: args.locationInput.name, 
-            address: args.locationInput.address, 
-            latitude: args.locationInput.latitude, 
-            longitude: args.locationInput.longitude, 
-            createdBy: args.locationInput.createdBy
-        })
         try {
-            const result = await location.save()
+            const location = await Location.create({
+                name: args.locationInput.name, 
+                address: args.locationInput.address, 
+                latitude: args.locationInput.latitude, 
+                longitude: args.locationInput.longitude, 
+                createdBy: args.locationInput.createdBy
+            })
             const createdBy = await Organization.findById(args.locationInput.createdBy)
             if (!createdBy) {
                 throw new Error('Organization not found.');
             }
             createdBy.createdLocations.push(location);
             await createdBy.save();
-            return transformLocation(result)
+            return transformLocation(location)
         } catch (err) {
             console.log(err);
             throw err;

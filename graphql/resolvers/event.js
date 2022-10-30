@@ -16,21 +16,22 @@ module.exports = {
     },
 
     createEvent: async args => {
-        const event = new Event({
-            name: args.eventInput.name,
-            dateTime: args.eventInput.dateTime,
-            description: args.eventInput.description,
-            createdBy: '635c74dfd827df257016d544'
-        })
         try {
-            const result = await event.save();
-            const createdBy = await Organization.findById('635c74dfd827df257016d544')
+            const event = await Event.create({
+                name: args.eventInput.name,
+                dateTime: args.eventInput.dateTime,
+                description: args.eventInput.description,
+                createdBy: args.eventInput.createdBy
+            })
+            // update organization with new event 
+            const createdBy = await Organization.findById(args.eventInput.createdBy)
             if (!createdBy) {
                 throw new Error('Organization not found.');
             }
             createdBy.createdEvents.push(event);
             await createdBy.save();
-            return transformEvent(result);
+
+            return transformEvent(event);
         } catch (err) {
             throw err;
         }

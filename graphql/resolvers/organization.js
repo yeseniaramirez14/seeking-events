@@ -23,12 +23,10 @@ module.exports = {
             if (existingOrg) {
                 throw new Error('Organization already exists.');
             } 
-            const organization = new Organization({
+            const organization = await Organization.create({
                 name: args.name,
             })
-    
-            const result = await organization.save();
-            return transformOrganization(result)
+                return transformOrganization(organization)
         } catch (err) {
             throw err;
         }
