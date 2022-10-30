@@ -48,7 +48,7 @@ module.exports = {
 
     updateLocation: async args => {
         try {            
-            const location = await Location.findOneAndUpdate(
+            const location = await Location.findByIdAndUpdate(
                 {_id: args.locationUpdateInput._id},
                 {
                     name: args.locationUpdateInput.name, 
@@ -56,7 +56,7 @@ module.exports = {
                     latitude: args.locationUpdateInput.latitude, 
                     longitude: args.locationUpdateInput.longitude
                 },
-                {returnDocument: "after"}
+                {returnDocument: "after", runValidators: true }
             )
             return transformLocation(location)
         } catch (err) {

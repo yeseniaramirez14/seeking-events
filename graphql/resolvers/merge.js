@@ -73,19 +73,6 @@ const events = async eventIds => {
     }
 }
 
-const singleEvent = async eventId => {
-    try {
-        const event = await Event.findById(eventId);
-        // const event = await eventLoader.load;
-        return {
-            ...event._doc,
-            createdBy: organization.bind(this, event.createdBy)
-        }
-    } catch (err) {
-        throw err;
-    }
-}
-
 // exports.organization = organization;
 // exports.locations = locations;
 // exports.singleEvent = singleEvent;

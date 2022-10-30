@@ -55,7 +55,7 @@ module.exports = {
                     dateTime: args.eventUpdateInput.dateTime,
                     description: args.eventUpdateInput.description
                 },
-                {returnDocument: "after"}
+                {returnDocument: "after", runValidators: true }
             )
             return transformEvent(event)
         } catch (err) {
