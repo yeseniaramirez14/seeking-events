@@ -39,6 +39,14 @@ module.exports = buildSchema(`
         createdBy: ID!
     }
 
+    input LocationUpdateInput {
+        _id: ID!
+        name: String
+        address: String
+        latitude: String
+        longitude: String
+    }
+
     input EventInput {
         name: String!
         dateTime: String!
@@ -58,6 +66,7 @@ module.exports = buildSchema(`
     type RootMutation {
         createOrganization(name: String!): Organization 
         createLocation(locationInput: LocationInput): Location
+        updateLocation(locationUpdateInput: LocationUpdateInput): Location
         createEvent(eventInput: EventInput): Event
         deleteEvent(_id: ID!): String
     }
