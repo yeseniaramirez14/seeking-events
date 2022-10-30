@@ -13,6 +13,12 @@ const organizationSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Location'
             }
+        ],
+        createdEvents: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Event'
+            }
         ]
     },
     { timestamps: true }

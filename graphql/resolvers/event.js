@@ -1,4 +1,5 @@
 const Event = require('../../models/event') 
+const Organization = require('../../models/organization')
 const { singleEvent, transformEvent } = require('./merge')
 
 
@@ -21,8 +22,18 @@ module.exports = {
             description: args.eventInput.description,
             createdBy: '635c74dfd827df257016d544'
         })
-        const result = await event.save();
-        return transformEvent(result)
+        try {
+            const result = await event.save();
+            const createdBy = await Organization.findById('635c74dfd827df257016d544')
+            if (!createdBy) {
+                throw new Error('Organization not found.');
+            }
+            createdBy.createdEvents.push(event);
+            await createdBy.save();
+            return transformEvent(result);
+        } catch (err) {
+            throw err;
+        }
     },
 
     deleteEvent: async args => {

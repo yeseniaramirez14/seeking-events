@@ -7,6 +7,7 @@ module.exports = buildSchema(`
         createdAt: String!
         updatedAt: String!
         createdLocations: [Location!]
+        createdEvents: [Event!]
     }
 
     type Location {
@@ -45,6 +46,7 @@ module.exports = buildSchema(`
 
     type RootQuery {
         organizations: [Organization!]!
+        singleOrganization(_id: ID!): Organization
         locations: [Location!]!
         events: [Event!]! 
     }

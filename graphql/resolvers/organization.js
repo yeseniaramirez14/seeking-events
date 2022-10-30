@@ -2,14 +2,13 @@ const Organization = require('../../models/organization')
 const { locations, transformOrganization } = require('./merge')
 
 
-
 module.exports = {
     organizations: async () => {
         try {
+            // mongoose find function allows you to query for documents with the given key(s)/value(s) and it will return an array of documents that match the given filter. 
+            // no parameters will return all documents 
             const organizations = await Organization.find()
-            // console.log("orgs", organizations)
             return organizations.map(org => {
-                console.log("org", locations)
                 return transformOrganization(org);
             })
         } catch (err) {
@@ -33,5 +32,14 @@ module.exports = {
             throw err;
         }
     },
+
+    singleOrganization: async orgId => {
+        try {
+            const org = await Organization.findById(orgId);
+            return transformOrganization(org)
+        } catch (err) {
+            throw err;
+        }
+    }
 
 }

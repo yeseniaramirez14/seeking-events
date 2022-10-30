@@ -1,8 +1,16 @@
+const DataLoader = require('dataloader');
+
 const Organization = require('../../models/organization') 
 const Location = require('../../models/location') 
 const Event = require('../../models/event') 
 const { dateToString } = require('../../helpers/date')
 
+const locationLoader = new DataLoader((locationIds) => {
+    return locations(locationIds)
+});
+const eventLoader = new DataLoader((eventIds) => {
+    return events(eventIds)
+});
 
 const transformLocation = loc => {
     return { 
@@ -18,13 +26,15 @@ const transformOrganization = org => {
         ...org._doc,
         createdAt: dateToString(org._doc.createdAt),
         updatedAt: dateToString(org._doc.updatedAt),
-        createdLocations: locations.bind(this, org._doc.createdLocations)
+        createdLocations: locations.bind(this, org._doc.createdLocations),
+        createdEvents: events.bind(this, org._doc.createdEvents)
     };
 }
 
 const transformEvent = event => {
     return { 
         ...event._doc, 
+        dateTime: dateToString(event._doc.dateTime),
         createdAt: dateToString(event._doc.createdAt),
         updatedAt: dateToString(event._doc.updatedAt),
         createdBy: organization.bind(this, event._doc.createdBy),
@@ -42,6 +52,7 @@ const organization = async organizationId => {
 
 const locations = async locationIds => {
     try {
+        // $in operator in MongoDB selects documents where the value of a field equals any value in the specified array 
         const locations = await Location.find({_id: {$in: locationIds}})
         return locations.map(loc => {
             return transformLocation(loc);
@@ -51,9 +62,21 @@ const locations = async locationIds => {
     }
 };
 
+const events = async eventIds => {
+    try {
+        const events = await Event.find({_id: {$in: eventIds}})
+        return events.map(event => {
+            return transformEvent(event);
+        });
+    } catch (err) {
+        throw err;
+    }
+}
+
 const singleEvent = async eventId => {
     try {
         const event = await Event.findById(eventId);
+        // const event = await eventLoader.load;
         return {
             ...event._doc,
             createdBy: organization.bind(this, event.createdBy)
