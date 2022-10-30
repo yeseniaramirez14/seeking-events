@@ -1,0 +1,141 @@
+##### ORGANIZATION #####
+
+# mutation {
+#   createOrganization(name: "boston tx") {
+#     _id
+#    	name
+#     createdAt
+#     updatedAt
+#     createdLocations {
+#       name
+#     }
+#   }
+# }
+
+# query {
+#   organizations {
+#     _id
+#     name
+#     createdAt
+#     updatedAt
+#     createdLocations {
+#       name
+#       createdBy {
+#         name
+#       }
+#     }
+#     createdEvents {
+#       name
+#       dateTime
+#     }
+#   }
+# }
+
+# query {
+#   singleOrganization(_id: "635c74dfd827df257016d544") {
+#     name
+#     createdLocations {
+#       name
+#     }
+#     createdEvents {
+#       name
+#     }
+#   }
+# }
+
+
+##### LOCATION #####
+
+mutation {
+  createLocation(locationInput: {
+    name: "howdy yall"
+    address: "787747"
+    latitude: "323"
+    longitude: "221"
+    createdBy: "635cbc567fef1ea1bd00af39"
+
+  }) {
+   	name
+    address
+    latitude
+    createdAt
+    updatedAt
+    createdBy {
+      name
+      createdAt
+      updatedAt
+      createdLocations {
+        name
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+
+# query {
+#   locations {
+#     _id
+#     name
+#     address
+#     latitude
+#     longitude
+#     createdAt
+#     updatedAt
+#     createdBy {
+#       _id
+#       name
+#       createdAt
+#       updatedAt
+#       createdLocations {
+#         name
+#       }
+#     }
+#   }
+# }
+
+
+##### EVENT #####
+
+# mutation {
+#   createEvent(eventInput: {
+#     name: "show up in list plz"
+#     dateTime: "2022-10-29T03:27:35.795Z",
+#     description: "w000rk",
+#   }) {
+#     _id
+#     name
+#     dateTime
+#     description
+#     createdAt
+#     updatedAt
+#     createdBy {
+#       name
+#       createdLocations {
+#         name
+#       }
+#     }
+#   }
+# }
+
+
+# query {
+#   events {
+#     _id
+#     name
+# 		dateTime
+#     description
+#     createdAt
+#     updatedAt
+#     createdBy {
+#       _id
+#       name
+#       createdAt
+#     }
+#   }
+# }
+
+# mutation {
+#   deleteEvent(_id: "635dab94a84fd7aee0845d01") 
+# }
+

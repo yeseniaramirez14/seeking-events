@@ -3,8 +3,6 @@ const Organization = require('../../models/organization')
 const { transformLocation } = require('./merge')
 
 
-
-
 module.exports = {
     locations: async () => {
         try {
@@ -23,11 +21,11 @@ module.exports = {
             address: args.locationInput.address, 
             latitude: args.locationInput.latitude, 
             longitude: args.locationInput.longitude, 
-            createdBy: '635c74dfd827df257016d544'
+            createdBy: args.locationInput.createdBy
         })
         try {
             const result = await location.save()
-            const createdBy = await Organization.findById('635c74dfd827df257016d544')
+            const createdBy = await Organization.findById(args.locationInput.createdBy)
             if (!createdBy) {
                 throw new Error('Organization not found.');
             }
@@ -36,6 +34,15 @@ module.exports = {
             return transformLocation(result)
         } catch (err) {
             console.log(err);
+            throw err;
+        }
+    },
+
+    singleLocation: async locationId => {
+        try {
+            const location = await Location.findById(locationId);
+            return transformLocation(location);
+        } catch (err) {
             throw err;
         }
     }

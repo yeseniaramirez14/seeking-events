@@ -36,6 +36,7 @@ module.exports = buildSchema(`
         address: String!
         latitude: String!
         longitude: String!
+        createdBy: ID!
     }
 
     input EventInput {
@@ -48,6 +49,7 @@ module.exports = buildSchema(`
         organizations: [Organization!]!
         singleOrganization(_id: ID!): Organization
         locations: [Location!]!
+        singleLocation(_id: ID!): Location
         events: [Event!]! 
     }
 
