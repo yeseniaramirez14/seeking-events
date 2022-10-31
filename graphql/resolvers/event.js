@@ -1,6 +1,6 @@
 const Event = require('../../models/event') 
 const Organization = require('../../models/organization')
-const { singleEvent, transformEvent } = require('./merge')
+const { transformEvent, eventLoader } = require('./merge')
 
 
 module.exports = {
@@ -39,8 +39,14 @@ module.exports = {
 
     singleEvent: async eventId => {
         try {
-            const event = await Event.findById(eventId);
-            return transformEvent(event)
+            // const event = await Event.findById(eventId);
+            // return transformEvent(event)
+            // no need to transformEvent again because eventLoader
+            // uses the event function which already transforms all the events
+            console.log("1. singleEvent")
+            const event = await eventLoader.load(eventId);
+            console.log("Ending with returning event")
+            return event
         } catch (err) {
             throw err;
         }
@@ -63,12 +69,18 @@ module.exports = {
         }
     },
 
-    deleteEvent: async args => {
+    deleteEvent: async eventId => {
         try {
-            const event = await Event.findById(args._id)
-            const transformedEvent = transformEvent(event)            
-            await event.deleteOne({_id: args._id})
-            return transformedEvent
+            const event = await Event.findById(eventId)
+            await Organization.findByIdAndUpdate(
+                {_id: event.createdBy},
+                { $pull: {
+                    createdEvents: event._id
+                }},
+                {returnDocument: "after", runValidators: true }
+            )
+            await Event.deleteOne({_id: eventId})
+            return transformEvent(event)
         } catch (err) {
             throw err;
         }

@@ -64,12 +64,18 @@ module.exports = {
         }
     },
 
-    deleteLocation: async args => {
+    deleteLocation: async locationId => {
         try {
-            const location = await Location.findById(args._id)
-            const transformedLocation = transformLocation(location)
-            await location.deleteOne({_id: args._id})
-            return transformedLocation
+            const location = await Location.findById(locationId)
+            await Organization.findByIdAndUpdate(
+                {_id: location.createdBy},
+                { $pull: {
+                    createdLocations: location._id
+                }},
+                {returnDocument: "after", runValidators: true}
+            )
+            await Location.deleteOne({_id: locationId})
+            return transformLocation(location)
         } catch (err) {
             throw err;
         }

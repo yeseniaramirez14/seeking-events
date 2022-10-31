@@ -1,5 +1,5 @@
 const Organization = require('../../models/organization')
-const { transformOrganization } = require('./merge')
+const { transformOrganization, organizationLoader } = require('./merge')
 
 
 module.exports = {
@@ -34,7 +34,9 @@ module.exports = {
 
     singleOrganization: async orgId => {
         try {
+            console.log("1. singleOrganization")
             const org = await Organization.findById(orgId);
+            // const org = await organizationLoader.load(orgId);
             return transformOrganization(org)
         } catch (err) {
             throw err;
