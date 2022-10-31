@@ -18,7 +18,9 @@ const eventLoader = new DataLoader((eventIds) => {
 });
 
 const organizationLoader = new DataLoader((organizationIds) => {
+    console.log("2. organizationLoader")
     return organization(organizationIds);
+    // return Organization.find({_id: { $in: organizationIds}})
 })
 
 const transformLocation = loc => {
@@ -31,17 +33,16 @@ const transformLocation = loc => {
 }
 
 const transformOrganization = org => {
-    console.log("transformOrganization")
-    console.log('org', org)
+    console.log("4. transformOrganization")
     return { 
         ...org._doc,
         createdAt: dateToString(org._doc.createdAt),
         updatedAt: dateToString(org._doc.updatedAt),
-        createdLocations: locations.bind(this, org._doc.createdLocations),
-        createdEvents: events.bind(this, org._doc.createdEvents)
+        // createdLocations: locations.bind(this, org._doc.createdLocations),
+        // createdEvents: events.bind(this, org._doc.createdEvents)
         // instead we will use the eventLoader 
-        // createdLocations: () => locationLoader.loadMany(org._doc.createdLocations),
-        // createdEvents: () => eventLoader.loadMany(org._doc.createdEvents)
+        createdLocations: () => locationLoader.loadMany(org._doc.createdLocations),
+        createdEvents: () => eventLoader.loadMany(org._doc.createdEvents)
     };
 }
 
@@ -58,7 +59,9 @@ const transformEvent = event => {
 
 const organization = async organizationId => {
     try {
+        console.log("3. organization", organizationId)
         const organization = await Organization.findById(organizationId)
+        console.log("3a. after finding org")
         // const organization = await Organization.find({ _id: {$in: organizationId}})
         return transformOrganization(organization);
     } catch (err) {
