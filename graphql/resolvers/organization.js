@@ -34,7 +34,10 @@ module.exports = {
 
     singleOrganization: async orgId => {
         try {
-            // const org = await Organization.findById(orgId);
+            const orgExist = await Organization.findById(orgId);
+            if (!orgExist) {
+                throw new Error('Organization does not exist.')
+            }
             const org = await organizationLoader.load(orgId);
             return org
         } catch (err) {

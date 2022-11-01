@@ -17,6 +17,10 @@ module.exports = {
 
     createLocation: async args => {
         try {
+            const createdBy = await Organization.findById(args.locationInput.createdBy)
+            if (!createdBy) {
+                throw new Error('Organization not found.');
+            }
             const location = await Location.create({
                 name: args.locationInput.name, 
                 address: args.locationInput.address, 
@@ -24,12 +28,17 @@ module.exports = {
                 longitude: args.locationInput.longitude, 
                 createdBy: args.locationInput.createdBy
             })
-            const createdBy = await Organization.findById(args.locationInput.createdBy)
-            if (!createdBy) {
-                throw new Error('Organization not found.');
-            }
-            createdBy.createdLocations.push(location);
-            await createdBy.save();
+            // createdBy.createdLocations.push(location);
+            // await createdBy.save();
+
+            await Organization.findByIdAndUpdate(
+                {_id: args.locationInput.createdBy},
+                { $push: {
+                    createdLocations: location._id
+                }},
+                {new: true, runValidators: true}
+            )
+
             return transformLocation(location)
         } catch (err) {
             console.log(err);
@@ -39,8 +48,12 @@ module.exports = {
 
     singleLocation: async locationId => {
         try {
-            const location = await Location.findById(locationId);
-            return transformLocation(location);
+            const locExist = await Location.findById(locationId);
+            if (!locExist) {
+                throw new Error('Location does not exist.')
+            }
+            const location = await locationLoader.load(eventId);
+            return location
         } catch (err) {
             throw err;
         }
