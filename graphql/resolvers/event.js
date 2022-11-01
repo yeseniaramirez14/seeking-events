@@ -30,7 +30,7 @@ module.exports = {
             }
             createdBy.createdEvents.push(event);
             await createdBy.save();
-
+            console.log("createdEvent")
             return transformEvent(event);
         } catch (err) {
             throw err;
@@ -45,6 +45,9 @@ module.exports = {
             // uses the event function which already transforms all the events
             console.log("1. singleEvent")
             const event = await eventLoader.load(eventId);
+            if (!event) {
+                throw new Error('Event ID does not exist')
+            }
             console.log("Ending with returning event")
             return event
         } catch (err) {
