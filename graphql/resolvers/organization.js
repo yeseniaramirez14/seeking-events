@@ -1,5 +1,6 @@
-const Organization = require('../../models/organization')
-const { transformOrganization, organizationLoader } = require('./merge')
+const Organization = require('../../models/organization');
+const { transformOrganization, organizationLoader } = require('./merge');
+
 
 
 module.exports = {
@@ -34,10 +35,11 @@ module.exports = {
 
     singleOrganization: async orgId => {
         try {
-            const orgExist = await Organization.findById(orgId);
+            const orgExist = await Organization.exists({_id: orgId});
             if (!orgExist) {
                 throw new Error('Organization does not exist.')
             }
+
             const org = await organizationLoader.load(orgId);
             return org
         } catch (err) {

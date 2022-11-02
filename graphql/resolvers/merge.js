@@ -11,6 +11,7 @@ const { dateToString } = require('../../helpers/date')
 const locationLoader = new DataLoader((locationIds) => {
     return locations(locationIds)
 });
+
 const eventLoader = new DataLoader((eventIds) => {
     return events(eventIds)
 });
@@ -109,3 +110,4 @@ exports.transformEvent = transformEvent;
 exports.transformLocation = transformLocation;
 exports.organizationLoader = organizationLoader;
 exports.eventLoader = eventLoader;
+exports.locationLoader = locationLoader;

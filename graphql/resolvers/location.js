@@ -1,6 +1,6 @@
 const Location = require('../../models/location') 
 const Organization = require('../../models/organization') 
-const { transformLocation } = require('./merge')
+const { transformLocation, locationLoader } = require('./merge')
 
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
 
     createLocation: async args => {
         try {
-            const createdBy = await Organization.findById(args.locationInput.createdBy)
+            const createdBy = await Organization.exists({_id: args.locationInput.createdBy})
             if (!createdBy) {
                 throw new Error('Organization not found.');
             }
@@ -48,11 +48,11 @@ module.exports = {
 
     singleLocation: async locationId => {
         try {
-            const locExist = await Location.findById(locationId);
+            const locExist = await Location.exists({_id: locationId});
             if (!locExist) {
                 throw new Error('Location does not exist.')
             }
-            const location = await locationLoader.load(eventId);
+            const location = await locationLoader.load(locationId);
             return location
         } catch (err) {
             throw err;

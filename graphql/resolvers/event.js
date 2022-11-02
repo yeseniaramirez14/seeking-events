@@ -20,9 +20,9 @@ module.exports = {
 
     createEvent: async args => {
         try {
-            const createdBy = await Organization.findById(args.eventInput.createdBy)
+            const createdBy = await Organization.exists({_id: args.eventInput.createdBy})
             if (!createdBy) {
-                throw new Error('Organization not found.');
+                throw new Error('Organization does not exist.');
             }
             const event = await Event.create({
                 name: args.eventInput.name,
@@ -63,7 +63,7 @@ module.exports = {
             // return transformEvent(event)
             // no need to transformEvent again because eventLoader
             // uses the event function which already transforms all the events
-            const eventExist = await Event.findById(eventId)
+            const eventExist = await Event.exists({_id: eventId})
             if (!eventExist) {
                 throw new Error('Event does not exist.');
             }
