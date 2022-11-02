@@ -14,8 +14,8 @@ module.exports = buildSchema(`
         _id: ID!
         name: String!
         address: String!
-        latitude: String!
-        longitude: String!
+        latitude: Float!
+        longitude: Float!
         createdAt: String!
         updatedAt: String!
         createdBy: Organization!
@@ -34,8 +34,6 @@ module.exports = buildSchema(`
     input LocationInput {
         name: String!
         address: String!
-        latitude: String!
-        longitude: String!
         createdBy: ID!
     }
 
@@ -43,8 +41,6 @@ module.exports = buildSchema(`
         _id: ID!
         name: String
         address: String
-        latitude: String
-        longitude: String
     }
 
     input EventInput {

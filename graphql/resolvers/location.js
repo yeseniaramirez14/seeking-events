@@ -1,6 +1,7 @@
 const Location = require('../../models/location') 
 const Organization = require('../../models/organization') 
 const { transformLocation, locationLoader } = require('./merge')
+const getLatLong = require('../../helpers/googleGeocode')
 
 
 module.exports = {
@@ -21,15 +22,16 @@ module.exports = {
             if (!createdBy) {
                 throw new Error('Organization not found.');
             }
+            
+            const locationInfo = await getLatLong(args.locationInput.address)
+
             const location = await Location.create({
                 name: args.locationInput.name, 
                 address: args.locationInput.address, 
-                latitude: args.locationInput.latitude, 
-                longitude: args.locationInput.longitude, 
+                latitude: locationInfo[0].latitude, 
+                longitude: locationInfo[0].longitude, 
                 createdBy: args.locationInput.createdBy
             })
-            // createdBy.createdLocations.push(location);
-            // await createdBy.save();
 
             await Organization.findByIdAndUpdate(
                 {_id: args.locationInput.createdBy},
@@ -61,17 +63,20 @@ module.exports = {
 
     updateLocation: async args => {
         try {            
+            const locationInfo = await getLatLong(args.locationUpdateInput.address)
+
             const location = await Location.findByIdAndUpdate(
                 {_id: args.locationUpdateInput._id},
                 {
                     name: args.locationUpdateInput.name, 
                     address: args.locationUpdateInput.address, 
-                    latitude: args.locationUpdateInput.latitude, 
-                    longitude: args.locationUpdateInput.longitude
+                    latitude: locationInfo[0].latitude, 
+                    longitude: locationInfo[0].longitude, 
                 },
                 {returnDocument: "after", runValidators: true }
             )
             return transformLocation(location)
+
         } catch (err) {
             throw err;
         }

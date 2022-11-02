@@ -17,9 +17,7 @@ const eventLoader = new DataLoader((eventIds) => {
 });
 
 const organizationLoader = new DataLoader((organizationIds) => {
-    // console.log("dd", Organization.find({_id: { $in: organizationIds}}))
     return organizations(organizationIds);
-    // return Organization.find({_id: { $in: organizationIds}})
 })
 
 const transformLocation = loc => {
@@ -56,9 +54,7 @@ const transformEvent = event => {
 
 const organization = async organizationId => {
     try {
-        // const organization = await Organization.findById(organizationId)
         const organization = await organizationLoader.load(organizationId.toString())
-        // const organization = await Organization.find({ _id: {$in: organizationId}})
         return organization;
     } catch (err) {
         throw err;
@@ -80,8 +76,6 @@ const organizations = async organizationIds => {
 
 const locations = async locationIds => {
     try {
-        // $in operator in MongoDB selects documents where the value of 
-        // a field equals any value in the specified array 
         const locations = await Location.find({_id: {$in: locationIds}})
         return locations.map(loc => {
             return transformLocation(loc);
@@ -102,9 +96,6 @@ const events = async eventIds => {
     }
 }
 
-// exports.organization = organization;
-// exports.locations = locations;
-// exports.singleEvent = singleEvent;
 exports.transformOrganization = transformOrganization;
 exports.transformEvent = transformEvent;
 exports.transformLocation = transformLocation;
