@@ -1,5 +1,5 @@
-const Location = require('../../models/location') 
-const Organization = require('../../models/organization') 
+const Location = require('../../collections/location') 
+const Organization = require('../../collections/organization') 
 const { transformLocation, locationLoader } = require('./merge')
 const getLatLong = require('../../helpers/googleGeocode')
 

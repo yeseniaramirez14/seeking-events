@@ -1,4 +1,4 @@
-const Organization = require('../../models/organization');
+const Organization = require('../../collections/organization');
 const { transformOrganization, organizationLoader } = require('./merge');
 
 

@@ -1,5 +1,5 @@
-const Event = require('../../models/event') 
-const Organization = require('../../models/organization')
+const Event = require('../../collections/event') 
+const Organization = require('../../collections/organization')
 const { transformEvent, eventLoader } = require('./merge')
 
 

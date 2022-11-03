@@ -1,8 +1,8 @@
 const DataLoader = require('dataloader');
 
-const Organization = require('../../models/organization') 
-const Location = require('../../models/location') 
-const Event = require('../../models/event') 
+const Organization = require('../../collections/organization') 
+const Location = require('../../collections/location') 
+const Event = require('../../collections/event') 
 const { dateToString } = require('../../helpers/date')
 
 
