@@ -1,7 +1,8 @@
 const Location = require('../../collections/location') 
 const Organization = require('../../collections/organization') 
-const { transformLocation, locationLoader } = require('./merge')
+const { transformLocation, locationLoader, organizationLoader } = require('./merge')
 const getLatLong = require('../../helpers/googleGeocode')
+const { orgExistsCheck, locExistsCheck } = require('../../helpers/errorHandling');
 
 
 module.exports = {
@@ -18,10 +19,7 @@ module.exports = {
 
     createLocation: async args => {
         try {
-            const createdBy = await Organization.exists({_id: args.locationInput.createdBy})
-            if (!createdBy) {
-                throw new Error('Organization not found.');
-            }
+            await orgExistsCheck(args.locationInput.createdBy)
             
             const locationInfo = await getLatLong(args.locationInput.address)
 
@@ -41,6 +39,8 @@ module.exports = {
                 {new: true, runValidators: true}
             )
 
+            organizationLoader.clear(args.locationInput.createdBy.toString())
+
             return transformLocation(location)
         } catch (err) {
             console.log(err);
@@ -50,10 +50,7 @@ module.exports = {
 
     singleLocation: async locationId => {
         try {
-            const locExist = await Location.exists({_id: locationId});
-            if (!locExist) {
-                throw new Error('Location does not exist.')
-            }
+            await locExistsCheck(locationId)
             const location = await locationLoader.load(locationId);
             return location
         } catch (err) {
@@ -62,7 +59,8 @@ module.exports = {
     },
 
     updateLocation: async args => {
-        try {            
+        try {       
+            await locExistsCheck(locationId)     
             const locationInfo = await getLatLong(args.locationUpdateInput.address)
 
             const location = await Location.findByIdAndUpdate(
@@ -75,8 +73,8 @@ module.exports = {
                 },
                 {returnDocument: "after", runValidators: true }
             )
+            organizationLoader.clear(location.createdBy.toString())
             return transformLocation(location)
-
         } catch (err) {
             throw err;
         }
@@ -84,7 +82,9 @@ module.exports = {
 
     deleteLocation: async locationId => {
         try {
+            await locExistsCheck(locationId)     
             const location = await Location.findById(locationId)
+
             await Organization.findByIdAndUpdate(
                 {_id: location.createdBy},
                 { $pull: {
@@ -93,6 +93,7 @@ module.exports = {
                 {returnDocument: "after", runValidators: true}
             )
             await Location.deleteOne({_id: locationId})
+            organizationLoader.clear(location.createdBy.toString())
             return transformLocation(location)
         } catch (err) {
             throw err;

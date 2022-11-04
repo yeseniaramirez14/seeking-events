@@ -1,6 +1,7 @@
 const Event = require('../../collections/event') 
-const Organization = require('../../collections/organization')
-const { transformEvent, eventLoader } = require('./merge')
+const Organization = require('../../collections/organization');
+const { orgExistsCheck, eventExistsCheck } = require('../../helpers/errorHandling');
+const { transformEvent, eventLoader, organizationLoader } = require('./merge')
 
 
 module.exports = {
@@ -17,10 +18,8 @@ module.exports = {
 
     createEvent: async args => {
         try {
-            const createdBy = await Organization.exists({_id: args.eventInput.createdBy})
-            if (!createdBy) {
-                throw new Error('Organization does not exist.');
-            }
+            await orgExistsCheck(args.eventInput.createdBy)
+
             const event = await Event.create({
                 name: args.eventInput.name,
                 dateTime: args.eventInput.dateTime,
@@ -28,7 +27,6 @@ module.exports = {
                 createdBy: args.eventInput.createdBy
             })
             
-            // update organization with new event 
             await Organization.findByIdAndUpdate(
                 {_id: args.eventInput.createdBy},
                 { $push: {
@@ -37,15 +35,7 @@ module.exports = {
                 {new: true, runValidators: true}
             )
 
-            // await Event.findByIdAndUpdate(
-            //     {_id: event._id}, 
-            //     { $set: 
-            //         { $push: {
-            //             "createdBy.$.createdEvents": event._id
-            //         }}
-            //     },
-            //     {new: true, runValidators: true}
-            // )
+            organizationLoader.clear(args.eventInput.createdBy.toString())
 
             return transformEvent(event);
         } catch (err) {
@@ -55,12 +45,7 @@ module.exports = {
 
     singleEvent: async eventId => {
         try {
-            // no need to transformEvent again because eventLoader
-            // uses the event function which already transforms all the events
-            const eventExist = await Event.exists({_id: eventId})
-            if (!eventExist) {
-                throw new Error('Event does not exist.');
-            }
+            await eventExistsCheck(eventId)
             const event = await eventLoader.load(eventId);
             return event
         } catch (err) {
@@ -70,6 +55,7 @@ module.exports = {
 
     updateEvent: async args => {
         try {
+            await eventExistsCheck(eventId)
             const event = await Event.findByIdAndUpdate(
                 {_id: args.eventUpdateInput._id},
                 {
@@ -79,6 +65,7 @@ module.exports = {
                 },
                 {returnDocument: "after", runValidators: true }
             )
+            organizationLoader.clear(event.createdBy.toString())
             return transformEvent(event)
         } catch (err) {
             throw err;
@@ -87,7 +74,9 @@ module.exports = {
 
     deleteEvent: async eventId => {
         try {
+            await eventExistsCheck(eventId)
             const event = await Event.findById(eventId)
+
             await Organization.findByIdAndUpdate(
                 {_id: event.createdBy},
                 { $pull: {
@@ -96,6 +85,7 @@ module.exports = {
                 {returnDocument: "after", runValidators: true }
             )
             await Event.deleteOne({_id: eventId})
+            organizationLoader.clear(event.createdBy.toString())
             return transformEvent(event)
         } catch (err) {
             throw err;

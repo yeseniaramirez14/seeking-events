@@ -1,5 +1,6 @@
 const Organization = require('../../collections/organization');
 const { transformOrganization, organizationLoader } = require('./merge');
+const orgExistsCheck = require('../../helpers/errorHandling')
 
 
 
@@ -27,7 +28,7 @@ module.exports = {
             const organization = await Organization.create({
                 name: args.name,
             })
-                return transformOrganization(organization)
+            return transformOrganization(organization)
         } catch (err) {
             throw err;
         }
@@ -35,10 +36,7 @@ module.exports = {
 
     singleOrganization: async orgId => {
         try {
-            const orgExist = await Organization.exists({_id: orgId});
-            if (!orgExist) {
-                throw new Error('Organization does not exist.')
-            }
+            await orgExistsCheck(orgId)
 
             const org = await organizationLoader.load(orgId);
             return org
