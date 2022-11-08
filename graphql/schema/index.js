@@ -6,6 +6,7 @@ module.exports = buildSchema(`
         name: String!
         createdAt: String!
         updatedAt: String!
+        employees: [User!]
         createdLocations: [Location!]
         createdEvents: [Event!]
     }
@@ -29,6 +30,17 @@ module.exports = buildSchema(`
         createdAt: String!
         updatedAt: String!
         createdBy: Organization!
+    }
+    
+    type User {
+        _id: ID!
+        createdAt: String!
+        updatedAt: String!
+        name: String!
+        username: String!
+        email: String!
+        password: String
+        organization: Organization!
     }
 
     input LocationInput {
@@ -57,6 +69,22 @@ module.exports = buildSchema(`
         description: String
     }
 
+    input UserInput {
+        name: String!
+        username: String!
+        email: String!
+        password: String!
+        organization: ID!
+    }
+
+    input UserUpdateInput {
+        _id: ID!
+        name: String
+        username: String
+        email: String
+        password: String
+    }
+
     type RootQuery {
         organizations: [Organization!]!
         singleOrganization(_id: ID!): Organization
@@ -64,6 +92,8 @@ module.exports = buildSchema(`
         singleLocation(_id: ID!): Location
         events: [Event!]! 
         singleEvent(_id: ID!): Event
+        users: [User!]!
+        singleUser(_id: ID!): User
     }
 
     type RootMutation {
@@ -74,6 +104,9 @@ module.exports = buildSchema(`
         createEvent(eventInput: EventInput): Event
         updateEvent(eventUpdateInput: EventUpdateInput): Event
         deleteEvent(_id: ID!): Event
+        createUser(userInput: UserInput): User
+        updateUser(userUpdateInput: UserUpdateInput): User
+        deleteUser(_id: ID!): User
     }
 
     schema {

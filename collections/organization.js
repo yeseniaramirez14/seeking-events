@@ -8,6 +8,12 @@ const organizationSchema = new Schema(
             type: String,
             required: true
         },
+        employees: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ],
         createdLocations: [
             {
                 type: Schema.Types.ObjectId,

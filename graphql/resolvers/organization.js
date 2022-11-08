@@ -1,6 +1,6 @@
 const Organization = require('../../collections/organization');
 const { transformOrganization, organizationLoader } = require('./merge');
-const orgExistsCheck = require('../../helpers/errorHandling')
+const {orgExistsCheck} = require('../../helpers/errorHandling')
 
 
 

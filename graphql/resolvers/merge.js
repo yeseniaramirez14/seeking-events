@@ -1,5 +1,6 @@
 const DataLoader = require('dataloader');
 
+const User = require('../../collections/user')
 const Organization = require('../../collections/organization') 
 const Location = require('../../collections/location') 
 const Event = require('../../collections/event') 
@@ -20,6 +21,11 @@ const organizationLoader = new DataLoader((organizationIds) => {
     return organizations(organizationIds);
 })
 
+const userLoader = new DataLoader((userIds) => {
+    return users(userIds)
+})
+
+
 const transformLocation = loc => {
     return { 
         ...loc._doc, 
@@ -30,15 +36,17 @@ const transformLocation = loc => {
 }
 
 const transformOrganization = org => {
+    console.log("transformOrgs:", org)
     return { 
         ...org._doc,
-        createdAt: dateToString(org.createdAt),
-        updatedAt: dateToString(org.updatedAt),
+        createdAt: dateToString(org._doc.createdAt),
+        updatedAt: dateToString(org._doc.updatedAt),
+        employees: () => userLoader.loadMany(org.employees),
+        createdLocations: () => locationLoader.loadMany(org.createdLocations),
+        createdEvents: () => eventLoader.loadMany(org.createdEvents)
         // createdLocations: locations.bind(this, org._doc.createdLocations),
         // createdEvents: events.bind(this, org._doc.createdEvents)
         // instead we will use the eventLoader 
-        createdLocations: () => locationLoader.loadMany(org.createdLocations),
-        createdEvents: () => eventLoader.loadMany(org.createdEvents)
     };
 }
 
@@ -49,6 +57,38 @@ const transformEvent = event => {
         createdAt: dateToString(event._doc.createdAt),
         updatedAt: dateToString(event._doc.updatedAt),
         createdBy: organization.bind(this, event._doc.createdBy),
+    }
+}
+
+const transformUser = user => {
+    return { 
+        ...user._doc,
+        password: null,
+        createdAt: dateToString(user._doc.createdAt),
+        updatedAt: dateToString(user._doc.updatedAt),
+        organization: organization.bind(this, user._doc.organization)
+    }
+}
+
+const user = async userId => {
+    try {
+        const user = await userLoader.load(userId.toString())
+        return user 
+    } catch (err) {
+        throw err;
+    }
+}
+
+const users = async userIds => {
+    try {
+        console.log("inside users")
+        const users = await User.find({_id: {$in: userIds}})
+        console.log("users:", users)
+        return users.map(user => {
+            return transformUser(user);
+        })
+    } catch (err) {
+        throw err;
     }
 }
 
@@ -99,6 +139,8 @@ const events = async eventIds => {
 exports.transformOrganization = transformOrganization;
 exports.transformEvent = transformEvent;
 exports.transformLocation = transformLocation;
+exports.transformUser = transformUser;
 exports.organizationLoader = organizationLoader;
 exports.eventLoader = eventLoader;
 exports.locationLoader = locationLoader;
+exports.userLoader = userLoader;

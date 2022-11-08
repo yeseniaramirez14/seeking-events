@@ -55,7 +55,7 @@ module.exports = {
 
     updateEvent: async args => {
         try {
-            await eventExistsCheck(eventId)
+            await eventExistsCheck(args.eventUpdateInput._id)
             const event = await Event.findByIdAndUpdate(
                 {_id: args.eventUpdateInput._id},
                 {

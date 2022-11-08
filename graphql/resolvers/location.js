@@ -43,7 +43,6 @@ module.exports = {
 
             return transformLocation(location)
         } catch (err) {
-            console.log(err);
             throw err;
         }
     },
