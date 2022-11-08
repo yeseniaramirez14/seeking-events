@@ -11,13 +11,13 @@
             updatedAt
             createdLocations {
                 name
-                createdBy {
+                organization {
                     name
                 }
             }
             createdEvents {
                 name
-                createdBy {
+                organization {
                     name
                 }
             }
@@ -55,13 +55,13 @@
             updatedAt
             createdLocations {
             name
-            createdBy {
+            organization {
                 name
             }
             }
             createdEvents {
             name
-            createdBy {
+            organization {
                 name
             }
             }
@@ -82,7 +82,7 @@
                 "createdLocations": [
                 {
                     "name": "Location 1",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 1"
                     }
                 }
@@ -90,7 +90,7 @@
                 "createdEvents": [
                 {
                     "name": "Event 1",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 1"
                     }
                 }
@@ -105,13 +105,13 @@
                 "createdEvents": [
                 {
                     "name": "Event 2",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 2"
                     }
                 },
                 {
                     "name": "Event 3",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 2"
                     }
                 }
@@ -125,13 +125,13 @@
                 "createdLocations": [
                 {
                     "name": "Location 2",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 3"
                     }
                 },
                 {
                     "name": "Location 3",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 3"
                     }
                 }
@@ -154,13 +154,13 @@
             updatedAt
             createdLocations {
                 name
-                createdBy {
+                organization {
                     name
             }
             }
             createdEvents {
                 name
-                createdBy {
+                organization {
                     name
             }
             }

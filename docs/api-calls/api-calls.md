@@ -15,13 +15,13 @@
             updatedAt
             createdLocations {
             name
-            createdBy {
+            organization {
                 name
             }
             }
             createdEvents {
             name
-            createdBy {
+            organization {
                 name
             }
             }
@@ -42,7 +42,7 @@
                 "createdLocations": [
                 {
                     "name": "Location 1",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 1"
                     }
                 }
@@ -50,7 +50,7 @@
                 "createdEvents": [
                 {
                     "name": "Event 1",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 1"
                     }
                 }
@@ -65,13 +65,13 @@
                 "createdEvents": [
                 {
                     "name": "Event 2",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 2"
                     }
                 },
                 {
                     "name": "Event 3",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 2"
                     }
                 }
@@ -85,13 +85,13 @@
                 "createdLocations": [
                 {
                     "name": "Location 2",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 3"
                     }
                 },
                 {
                     "name": "Location 3",
-                    "createdBy": {
+                    "organization": {
                     "name": "Org 3"
                     }
                 }
@@ -115,7 +115,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -141,7 +141,7 @@
                 "longitude": -122.0841877,
                 "createdAt": "2022-11-03T06:10:27.235Z",
                 "updatedAt": "2022-11-03T06:10:27.235Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 1",
                     "createdLocations": [
                         {
@@ -163,7 +163,7 @@
                 "longitude": -97.7403448,
                 "createdAt": "2022-11-03T06:18:17.523Z",
                 "updatedAt": "2022-11-03T06:18:17.523Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                         {
@@ -184,7 +184,7 @@
                 "longitude": -73.9850246,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T06:21:29.632Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                         {
@@ -213,7 +213,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 _id
                 name
                 createdEvents {
@@ -239,7 +239,7 @@
                 "description": "Description for Event 1",
                 "createdAt": "2022-11-03T05:55:14.249Z",
                 "updatedAt": "2022-11-03T05:55:14.249Z",
-                "createdBy": {
+                "organization": {
                     "_id": "6363534c8729f67db261e605",
                     "name": "Org 1",
                     "createdEvents": [
@@ -261,7 +261,7 @@
                 "description": "Description for Event 2",
                 "createdAt": "2022-11-03T06:13:43.786Z",
                 "updatedAt": "2022-11-03T06:13:43.786Z",
-                "createdBy": {
+                "organization": {
                     "_id": "636356be8729f67db261e608",
                     "name": "Org 2",
                     "createdEvents": [
@@ -282,7 +282,7 @@
                 "description": "Description for Event 3",
                 "createdAt": "2022-11-03T06:13:50.903Z",
                 "updatedAt": "2022-11-03T06:13:50.903Z",
-                "createdBy": {
+                "organization": {
                     "_id": "636356be8729f67db261e608",
                     "name": "Org 2",
                     "createdEvents": [
@@ -312,13 +312,13 @@
             updatedAt
             createdLocations {
                 name
-                createdBy {
+                organization {
                     name
             }
             }
             createdEvents {
                 name
-                createdBy {
+                organization {
                     name
             }
             }
@@ -338,7 +338,7 @@
                 "createdLocations": [
                     {
                     "name": "Location 1",
-                    "createdBy": {
+                    "organization": {
                         "name": "Org 1"
                     }
                     }
@@ -346,7 +346,7 @@
                 "createdEvents": [
                     {
                     "name": "Event 1",
-                    "createdBy": {
+                    "organization": {
                         "name": "Org 1"
                     }
                     }
@@ -368,7 +368,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 name
                 createdLocations {
                     name
@@ -393,7 +393,7 @@
                 "longitude": -73.9850246,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T06:21:29.632Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                     {
@@ -421,7 +421,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -445,7 +445,7 @@
                 "description": "Description for Event 2",
                 "createdAt": "2022-11-03T06:13:43.786Z",
                 "updatedAt": "2022-11-03T06:13:43.786Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 2",
                     "createdLocations": [],
                     "createdEvents": [
@@ -477,13 +477,13 @@
             updatedAt
             createdLocations {
                 name
-                createdBy {
+                organization {
                     name
                 }
             }
             createdEvents {
                 name
-                createdBy {
+                organization {
                     name
                 }
             }
@@ -517,7 +517,7 @@
             name: "Event 1"
             dateTime: "2022-11-14T03:27:35.795Z",
             description: "Description for Event 1",
-            createdBy: "6363534c8729f67db261e605"
+            organization: "6363534c8729f67db261e605"
         }) {
             _id
             name
@@ -525,7 +525,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -549,7 +549,7 @@
                 "description": "Description for Event 1",
                 "createdAt": "2022-11-03T05:55:14.249Z",
                 "updatedAt": "2022-11-03T05:55:14.249Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 1",
                     "createdLocations": [],
                     "createdEvents": [
@@ -572,7 +572,7 @@
         createLocation(locationInput: {
             name: "Location 1"
             address: "1600 Amphitheatre Parkway, Mountain View, CA"
-            createdBy: "6363534c8729f67db261e605"
+            organization: "6363534c8729f67db261e605"
         }) {
             name
             address
@@ -580,7 +580,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
             _id
             name
             createdLocations {
@@ -605,7 +605,7 @@
                 "longitude": -122.0841877,
                 "createdAt": "2022-11-03T06:10:27.235Z",
                 "updatedAt": "2022-11-03T06:10:27.235Z",
-                "createdBy": {
+                "organization": {
                     "_id": "6363534c8729f67db261e605",
                     "name": "Org 1",
                     "createdLocations": [
@@ -641,7 +641,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 name
             }
         }
@@ -660,7 +660,7 @@
                 "longitude": -122.318706,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T23:27:44.908Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3"
                 }
             }
@@ -684,7 +684,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 name
             }
         }
@@ -702,7 +702,7 @@
                 "description": "Description for Event 2 updated",
                 "createdAt": "2022-11-03T06:13:43.786Z",
                 "updatedAt": "2022-11-03T23:40:28.598Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 2"
                 }
             }

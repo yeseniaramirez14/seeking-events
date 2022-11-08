@@ -18,24 +18,24 @@ module.exports = {
 
     createEvent: async args => {
         try {
-            await orgExistsCheck(args.eventInput.createdBy)
+            await orgExistsCheck(args.eventInput.organization)
 
             const event = await Event.create({
                 name: args.eventInput.name,
                 dateTime: args.eventInput.dateTime,
                 description: args.eventInput.description,
-                createdBy: args.eventInput.createdBy
+                organization: args.eventInput.organization
             })
             
             await Organization.findByIdAndUpdate(
-                {_id: args.eventInput.createdBy},
+                {_id: args.eventInput.organization},
                 { $push: {
                     createdEvents: event._id
                 }},
                 {new: true, runValidators: true}
             )
 
-            organizationLoader.clear(args.eventInput.createdBy.toString())
+            organizationLoader.clear(args.eventInput.organization.toString())
 
             return transformEvent(event);
         } catch (err) {
@@ -65,7 +65,7 @@ module.exports = {
                 },
                 {returnDocument: "after", runValidators: true }
             )
-            organizationLoader.clear(event.createdBy.toString())
+            organizationLoader.clear(event.organization.toString())
             return transformEvent(event)
         } catch (err) {
             throw err;
@@ -78,14 +78,14 @@ module.exports = {
             const event = await Event.findById(eventId)
 
             await Organization.findByIdAndUpdate(
-                {_id: event.createdBy},
+                {_id: event.organization},
                 { $pull: {
                     createdEvents: event._id
                 }},
                 {returnDocument: "after", runValidators: true }
             )
             await Event.deleteOne({_id: eventId})
-            organizationLoader.clear(event.createdBy.toString())
+            organizationLoader.clear(event.organization.toString())
             return transformEvent(event)
         } catch (err) {
             throw err;

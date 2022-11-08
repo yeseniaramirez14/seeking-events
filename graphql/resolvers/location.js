@@ -19,7 +19,7 @@ module.exports = {
 
     createLocation: async args => {
         try {
-            await orgExistsCheck(args.locationInput.createdBy)
+            await orgExistsCheck(args.locationInput.organization)
             
             const locationInfo = await getLatLong(args.locationInput.address)
 
@@ -28,18 +28,18 @@ module.exports = {
                 address: args.locationInput.address, 
                 latitude: locationInfo[0].latitude, 
                 longitude: locationInfo[0].longitude, 
-                createdBy: args.locationInput.createdBy
+                organization: args.locationInput.organization
             })
 
             await Organization.findByIdAndUpdate(
-                {_id: args.locationInput.createdBy},
+                {_id: args.locationInput.organization},
                 { $push: {
                     createdLocations: location._id
                 }},
                 {new: true, runValidators: true}
             )
 
-            organizationLoader.clear(args.locationInput.createdBy.toString())
+            organizationLoader.clear(args.locationInput.organization.toString())
 
             return transformLocation(location)
         } catch (err) {
@@ -72,7 +72,7 @@ module.exports = {
                 },
                 {returnDocument: "after", runValidators: true }
             )
-            organizationLoader.clear(location.createdBy.toString())
+            organizationLoader.clear(location.organization.toString())
             return transformLocation(location)
         } catch (err) {
             throw err;
@@ -85,14 +85,14 @@ module.exports = {
             const location = await Location.findById(locationId)
 
             await Organization.findByIdAndUpdate(
-                {_id: location.createdBy},
+                {_id: location.organization},
                 { $pull: {
                     createdLocations: location._id
                 }},
                 {returnDocument: "after", runValidators: true}
             )
             await Location.deleteOne({_id: locationId})
-            organizationLoader.clear(location.createdBy.toString())
+            organizationLoader.clear(location.organization.toString())
             return transformLocation(location)
         } catch (err) {
             throw err;

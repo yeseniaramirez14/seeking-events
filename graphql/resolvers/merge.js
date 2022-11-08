@@ -31,7 +31,7 @@ const transformLocation = loc => {
         ...loc._doc, 
         createdAt: dateToString(loc._doc.createdAt),
         updatedAt: dateToString(loc._doc.updatedAt),
-        createdBy: organization.bind(this, loc._doc.createdBy)
+        organization: organization.bind(this, loc._doc.organization)
     }
 }
 
@@ -44,9 +44,6 @@ const transformOrganization = org => {
         employees: () => userLoader.loadMany(org.employees),
         createdLocations: () => locationLoader.loadMany(org.createdLocations),
         createdEvents: () => eventLoader.loadMany(org.createdEvents)
-        // createdLocations: locations.bind(this, org._doc.createdLocations),
-        // createdEvents: events.bind(this, org._doc.createdEvents)
-        // instead we will use the eventLoader 
     };
 }
 
@@ -56,7 +53,7 @@ const transformEvent = event => {
         dateTime: dateToString(event._doc.dateTime),
         createdAt: dateToString(event._doc.createdAt),
         updatedAt: dateToString(event._doc.updatedAt),
-        createdBy: organization.bind(this, event._doc.createdBy),
+        organization: organization.bind(this, event._doc.organization),
     }
 }
 

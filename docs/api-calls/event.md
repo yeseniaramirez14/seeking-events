@@ -8,7 +8,7 @@
             name: "Event 1"
             dateTime: "2022-11-14T03:27:35.795Z",
             description: "Description for Event 1",
-            createdBy: "6363534c8729f67db261e605"
+            organization: "6363534c8729f67db261e605"
         }) {
             _id
             name
@@ -16,7 +16,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -40,7 +40,7 @@
                 "description": "Description for Event 1",
                 "createdAt": "2022-11-03T05:55:14.249Z",
                 "updatedAt": "2022-11-03T05:55:14.249Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 1",
                     "createdLocations": [],
                     "createdEvents": [
@@ -67,7 +67,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 _id
                 name
                 createdEvents {
@@ -93,7 +93,7 @@
                 "description": "Description for Event 1",
                 "createdAt": "2022-11-03T05:55:14.249Z",
                 "updatedAt": "2022-11-03T05:55:14.249Z",
-                "createdBy": {
+                "organization": {
                     "_id": "6363534c8729f67db261e605",
                     "name": "Org 1",
                     "createdEvents": [
@@ -115,7 +115,7 @@
                 "description": "Description for Event 2",
                 "createdAt": "2022-11-03T06:13:43.786Z",
                 "updatedAt": "2022-11-03T06:13:43.786Z",
-                "createdBy": {
+                "organization": {
                     "_id": "636356be8729f67db261e608",
                     "name": "Org 2",
                     "createdEvents": [
@@ -136,7 +136,7 @@
                 "description": "Description for Event 3",
                 "createdAt": "2022-11-03T06:13:50.903Z",
                 "updatedAt": "2022-11-03T06:13:50.903Z",
-                "createdBy": {
+                "organization": {
                     "_id": "636356be8729f67db261e608",
                     "name": "Org 2",
                     "createdEvents": [
@@ -166,7 +166,7 @@
             description
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -190,7 +190,7 @@
                 "description": "Description for Event 2",
                 "createdAt": "2022-11-03T06:13:43.786Z",
                 "updatedAt": "2022-11-03T06:13:43.786Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 2",
                     "createdLocations": [],
                     "createdEvents": [

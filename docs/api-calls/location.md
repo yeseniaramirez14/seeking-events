@@ -7,7 +7,7 @@
         createLocation(locationInput: {
             name: "Location 1"
             address: "1600 Amphitheatre Parkway, Mountain View, CA"
-            createdBy: "6363534c8729f67db261e605"
+            organization: "6363534c8729f67db261e605"
         }) {
             name
             address
@@ -15,7 +15,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
             _id
             name
             createdLocations {
@@ -40,7 +40,7 @@
                 "longitude": -122.0841877,
                 "createdAt": "2022-11-03T06:10:27.235Z",
                 "updatedAt": "2022-11-03T06:10:27.235Z",
-                "createdBy": {
+                "organization": {
                     "_id": "6363534c8729f67db261e605",
                     "name": "Org 1",
                     "createdLocations": [
@@ -75,7 +75,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 name
             }
         }
@@ -94,7 +94,7 @@
                 "longitude": -122.318706,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T23:27:44.908Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3"
                 }
             }
@@ -138,7 +138,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
             name
             createdLocations {
                 name
@@ -164,7 +164,7 @@
                 "longitude": -122.0841877,
                 "createdAt": "2022-11-03T06:10:27.235Z",
                 "updatedAt": "2022-11-03T06:10:27.235Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 1",
                     "createdLocations": [
                         {
@@ -186,7 +186,7 @@
                 "longitude": -97.7403448,
                 "createdAt": "2022-11-03T06:18:17.523Z",
                 "updatedAt": "2022-11-03T06:18:17.523Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                         {
@@ -207,7 +207,7 @@
                 "longitude": -73.9850246,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T06:21:29.632Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                         {
@@ -237,7 +237,7 @@
             longitude
             createdAt
             updatedAt
-            createdBy {
+            organization {
                 name
                 createdLocations {
                     name
@@ -262,7 +262,7 @@
                 "longitude": -73.9850246,
                 "createdAt": "2022-11-03T06:21:29.632Z",
                 "updatedAt": "2022-11-03T06:21:29.632Z",
-                "createdBy": {
+                "organization": {
                     "name": "Org 3",
                     "createdLocations": [
                     {

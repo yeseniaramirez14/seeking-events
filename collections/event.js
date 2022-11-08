@@ -18,7 +18,7 @@ const eventSchema = new Schema(
             type: String,
             required: true
         },
-        createdBy: {
+        organization: {
             type: Schema.Types.ObjectId,
             ref: 'Organization'
         }

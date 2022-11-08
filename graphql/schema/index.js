@@ -19,7 +19,7 @@ module.exports = buildSchema(`
         longitude: Float!
         createdAt: String!
         updatedAt: String!
-        createdBy: Organization!
+        organization: Organization!
     }
 
     type Event {
@@ -29,7 +29,7 @@ module.exports = buildSchema(`
         description: String!
         createdAt: String!
         updatedAt: String!
-        createdBy: Organization!
+        organization: Organization!
     }
     
     type User {
@@ -46,7 +46,7 @@ module.exports = buildSchema(`
     input LocationInput {
         name: String!
         address: String!
-        createdBy: ID!
+        organization: ID!
     }
 
     input LocationUpdateInput {
@@ -59,7 +59,7 @@ module.exports = buildSchema(`
         name: String!
         dateTime: String!
         description: String!
-        createdBy: ID!
+        organization: ID!
     }
 
     input EventUpdateInput {

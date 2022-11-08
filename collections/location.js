@@ -20,7 +20,7 @@ const locationSchema = new Schema(
             type: Number,
             required: true
         },
-        createdBy: {
+        organization: {
             type: Schema.Types.ObjectId,
             ref: 'Organization'
         }

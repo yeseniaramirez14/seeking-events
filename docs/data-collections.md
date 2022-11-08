@@ -24,12 +24,12 @@
 | address          | String  | true     |
 | latitude         | Number  | true     |
 | longitude        | Number  | true     |
-| createdBy        | Object  | true     |
+| organization        | Object  | true     |
 | createdAt        | Date    | true     |
 | updatedAt        | Date    | true     |
 
 ```latitude``` and ```longitude``` are automatically populated via Google Maps Geocoding API. <br>
-```createdBy``` holds the organization that created the location. <br>
+```organization``` holds the organization that created the location. <br>
 ```createdAt``` and ```updatedAt``` are set by Mongoose when the location is first created. <br>
 ```updatedAt``` is updated by Mongoose when the location is updated. 
 
@@ -41,11 +41,11 @@
 | name             | String  | true     |
 | dateTime         | Date    | true     |
 | description      | String  | true     |
-| createdBy        | Object  | true     |
+| organization        | Object  | true     |
 | createdAt        | Date    | true     |
 | updatedAt        | Date    | true     |
 
-```createdBy``` holds the organization that created the event. <br>
+```organization``` holds the organization that created the event. <br>
 ```createdAt``` and ```updatedAt``` are set by Mongoose when the event is first created. <br>
 ```updatedAt``` is updated by Mongoose when the event is updated. 
 
