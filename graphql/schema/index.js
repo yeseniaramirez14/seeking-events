@@ -34,13 +34,13 @@ module.exports = buildSchema(`
     
     type User {
         _id: ID!
-        createdAt: String!
-        updatedAt: String!
         name: String!
         username: String!
         email: String!
         password: String
         organization: Organization!
+        createdAt: String!
+        updatedAt: String!
     }
 
     input LocationInput {
