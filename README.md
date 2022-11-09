@@ -1,16 +1,11 @@
-<h1 align="center">Econify Take Home Project</h1>
+<h1 align="center">Seeking Events</h1>
 
 <h2 align="center"> Yesenia Ramirez </h2>
 
-<p align="center">This project showcases 4 data collections (Organization, Location, Event, and User) where an Organization has the ability to Create, Read, Update and Delete Locations & Events. As well as query to find all the locations and events created by an organization and to query which organization a location or event belongs to.</p>
+<p align="center">Seeking Events is an event booking website where employees from an organization can create events for users to sign up for. Users will be able to search for events depending on location or category and view all their past and upcoming events. <br> <i>*a work in progress*</i></p>
 
 <br>
 <hr>
-<br>
-
-# [Presentation Link](https://docs.google.com/presentation/d/1YknOI0xHR_WHOdj26dw8q1LcGt3ZtgF3kyPSGmbBBgE/edit?usp=sharing)
-
-<br>
 <br>
 
 ## Table of Contents 
@@ -81,16 +76,16 @@
 * [.env](.env)
 * [.gitignore](.gitignore)
 * [app.js](./app.js)
-* [README.md](./README.md)
+* [README.md](./README.md)z
 
 <br>
 <hr>
 <br>
 
 ## Installation/Setup
-1. Git fork and clone this repo and navigate into the ```/econify-project``` directory
+1. Git fork and clone this repo and navigate into the ```/seeking-events``` directory
 ```sh
-cd econify-project
+cd seeking-events
 ```
 2. Install dependencies 
 ```sh
