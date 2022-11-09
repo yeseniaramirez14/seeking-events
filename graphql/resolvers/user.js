@@ -3,18 +3,20 @@ const bcrypt = require('bcryptjs');
 const User = require('../../collections/user'); 
 const {transformUser, userLoader, organizationLoader } = require('./merge');
 const Organization = require('../../collections/organization');
-const { userExistsCheck } = require('../../helpers/errorHandling');
+const { userExistsCheck, orgExistsCheck } = require('../../helpers/errorHandling');
 
 module.exports = {
     createUser: async args => {
         try {
+            await orgExistsCheck(args.userInput.organization)
+
             const existingUsername = await User.findOne({ username: args.userInput.username })
             if (existingUsername) {
                 throw new Error('Username already taken. Please choose a different username.');
             } 
             const existingEmail = await User.findOne({ email: args.userInput.email })
             if (existingEmail) {
-                throw new Error('Email exists already.')
+                throw new Error('Email already exists.')
             }
 
             const hashedPassword = await bcrypt.hash(args.userInput.password, 12);

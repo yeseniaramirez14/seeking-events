@@ -5,7 +5,6 @@ const User = require("../collections/user")
 
 module.exports = {
     orgExistsCheck: async orgId => {
-        console.log("inside orgexistscheck")
         const orgExist = await Organization.exists({_id: orgId});
         if (!orgExist) {
             throw new Error('Organization does not exist.')

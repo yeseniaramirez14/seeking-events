@@ -59,19 +59,33 @@ module.exports = {
 
     updateLocation: async args => {
         try {       
-            await locExistsCheck(locationId)     
-            const locationInfo = await getLatLong(args.locationUpdateInput.address)
+            await locExistsCheck(args.locationUpdateInput._id)     
 
-            const location = await Location.findByIdAndUpdate(
-                {_id: args.locationUpdateInput._id},
-                {
-                    name: args.locationUpdateInput.name, 
-                    address: args.locationUpdateInput.address, 
-                    latitude: locationInfo[0].latitude, 
-                    longitude: locationInfo[0].longitude, 
-                },
-                {returnDocument: "after", runValidators: true }
-            )
+            let location;
+
+            if (args.locationUpdateInput.address) {
+                const locationInfo = await getLatLong(args.locationUpdateInput.address)
+
+                location = await Location.findByIdAndUpdate(
+                    {_id: args.locationUpdateInput._id},
+                    {
+                        name: args.locationUpdateInput.name, 
+                        address: args.locationUpdateInput.address, 
+                        latitude: locationInfo[0].latitude, 
+                        longitude: locationInfo[0].longitude, 
+                    },
+                    {returnDocument: "after", runValidators: true }
+                )
+            } else {
+                location = await Location.findByIdAndUpdate(
+                    {_id: args.locationUpdateInput._id},
+                    {
+                        name: args.locationUpdateInput.name
+                    },
+                    {returnDocument: "after", runValidators: true }
+                )
+            }
+
             organizationLoader.clear(location.organization.toString())
             return transformLocation(location)
         } catch (err) {

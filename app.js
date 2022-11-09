@@ -23,8 +23,6 @@ app.use('/graphql', graphqlHTTP({
 })
 );  
 
-// app.use('/graphql', graphqlHTTP({ schema: schema.schema, graphiql: true}));  
-
 mongoose
     .connect(
         `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.5wjwmnc.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`

@@ -17,13 +17,13 @@
             createdAt
             updatedAt
             organization {
-            name
-            createdLocations {
                 name
-            }
-            createdEvents {
-                name
-            }
+                createdLocations {
+                    name
+                }
+                createdEvents {
+                    name
+                }
             }
         }
     }
@@ -49,6 +49,71 @@
                     }
                     ]
                 }
+            }
+        }
+    }
+    ```
+
+* ### **Update an event**
+    Input:
+    ```text
+    mutation {
+        updateEvent(eventUpdateInput: {
+            _id: "636357c28729f67db261e613",
+            name: "Event 1 name updated",
+            dateTime: "2002-11-20T08:00:08.761Z"
+        }) {
+            name
+            _id
+            dateTime
+            createdAt
+            updatedAt
+            organization {
+            name
+            }
+        }
+    }
+    ```
+
+    Response:
+    ```json
+    {
+        "data": {
+            "updateEvent": {
+                "name": "Event 1 name updated",
+                "_id": "636b606b34b0d9b9ef33757c",
+                "dateTime": "2002-11-20T08:00:08.761Z",
+                "createdAt": "2022-11-03T05:55:14.249Z",
+                "updatedAt": "2022-11-09T08:11:33.791Z",
+                "organization": {
+                    "name": "Org 1",
+                    "createdEvents": [
+                        {
+                            "name": "Event 1 name updated"
+                        }
+                        ]
+                }
+            }
+        }
+    }
+    ```
+
+* ### **Delete an event**
+    Input:
+    ```text
+    mutation {
+        deleteEvent(_id: "636357c28729f67db261e613") {
+            name
+        }
+    }
+    ```
+
+    Response:
+    ```json
+    {
+        "data": {
+            "deleteEvent": {
+            "name": "Event 1 name updated"
             }
         }
     }

@@ -2,7 +2,7 @@
 
 <h2 align="center"> Yesenia Ramirez </h2>
 
-<p align="center">This project showcases 3 data collections (Organization, Location, and Event) where an Organization has the ability to Create, Read, Update and Delete Locations & Events. As well as query to find all the locations and events created by an organization and to query which organization a location or event belongs to.</p>
+<p align="center">This project showcases 4 data collections (Organization, Location, Event, and User) where an Organization has the ability to Create, Read, Update and Delete Locations & Events. As well as query to find all the locations and events created by an organization and to query which organization a location or event belongs to.</p>
 
 <br>
 <hr>
@@ -15,6 +15,7 @@
         - [Organization design](docs/api-calls/organization.md)
         - [Location design](docs/api-calls/location.md)
         - [Event design](docs/api-calls/event.md)
+        - [User design](docs/api-calls/user.md)
     - [Data collections](docs/data-collections.md)
 - [Directory Tree](#directory-tree)
 - [Installation/Setup](#installationsetup)
@@ -36,6 +37,7 @@
     - [Organization design](docs/api-calls/organization.md)
     - [Location design](docs/api-calls/location.md)
     - [Event design](docs/api-calls/event.md)
+    - [User design](docs/api-calls//user.md)
 - [Data collections](docs/data-collections.md)
 
 <br>
@@ -47,6 +49,7 @@
     * [event.js](./collections/event.js)
     * [location.js](./collections/location.js)
     * [organization.js](./collections/organization.js)
+    * [user.js](./collections/user.js)
 * [docs/](./docs)
     * [api-calls/](./docs/api-calls/)
         * [api-calls.md](./docs/api-calls/api-calls.md)
@@ -54,6 +57,7 @@
         * [external-apis.md](./docs/api-calls/external-apis.md)
         * [location.md](./docs/api-calls/location.md)
         * [organization.md](./docs/api-calls/organization.md)
+        * [user.md](./docs/api-calls/user.md)
     * [data-collections.md](./docs/data-collections.md)
 * [graphql/](./graphql)
     * [resolvers/](./graphql/resolvers)
@@ -62,10 +66,12 @@
         * [location.js](./graphql/resolvers/location.js)
         * [merge.js](./graphql/resolvers/merge.js)
         * [organization.js](./graphql/resolvers/organization.js)
+        * [user.js](./graphql/resolvers/user.js)
     * [schema/](./graphql/schema)
         * [index.js](./graphql/schema/index.js)
 * [helpers/](./helpers)
     * [date.js](./helpers/date.js)
+    * [errorHandling.js](./helpers/errorHandling.js)
     * [googleGeocode.js](./helpers/googleGeocode.js)
 * [.env](.env)
 * [.gitignore](.gitignore)

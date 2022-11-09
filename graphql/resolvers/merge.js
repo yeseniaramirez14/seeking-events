@@ -7,8 +7,6 @@ const Event = require('../../collections/event')
 const { dateToString } = require('../../helpers/date')
 
 
-// A batch loading function accepts an Array of keys, 
-// and returns a Promise which resolves to an Array of values*.
 const locationLoader = new DataLoader((locationIds) => {
     return locations(locationIds)
 });
@@ -36,16 +34,15 @@ const transformLocation = loc => {
 }
 
 const transformOrganization = org => {
-    console.log("transformOrgs:", org)
     return { 
         ...org._doc,
-        createdAt: dateToString(org._doc.createdAt),
-        updatedAt: dateToString(org._doc.updatedAt),
+        createdAt: dateToString(org.createdAt),
+        updatedAt: dateToString(org.updatedAt),
         employees: () => userLoader.loadMany(org.employees),
         createdLocations: () => locationLoader.loadMany(org.createdLocations),
         createdEvents: () => eventLoader.loadMany(org.createdEvents)
     };
-}
+};
 
 const transformEvent = event => {
     return { 
@@ -67,20 +64,10 @@ const transformUser = user => {
     }
 }
 
-const user = async userId => {
-    try {
-        const user = await userLoader.load(userId.toString())
-        return user 
-    } catch (err) {
-        throw err;
-    }
-}
 
 const users = async userIds => {
     try {
-        console.log("inside users")
         const users = await User.find({_id: {$in: userIds}})
-        console.log("users:", users)
         return users.map(user => {
             return transformUser(user);
         })
@@ -100,8 +87,6 @@ const organization = async organizationId => {
 
 const organizations = async organizationIds => {
     try {
-        // $in operator in MongoDB selects documents where the value of 
-        // a field equals any value in the specified array 
         const organizations = await Organization.find({_id: {$in: organizationIds}})
         return organizations.map(org => {
             return transformOrganization(org);
