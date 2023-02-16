@@ -33,6 +33,7 @@
 <br>
 
 ## Design
+- [Project Presentation with documentation](https://docs.google.com/presentation/d/1VQWDvQFCkfEv-a92-rjDfXH0bf98HBZx9Y5PfXriAsk/edit?usp=sharing)
 - [API design](docs/api-calls/api-calls.md)
     - [Organization design](docs/api-calls/organization.md)
     - [Location design](docs/api-calls/location.md)
@@ -76,7 +77,7 @@
 * [.env](.env)
 * [.gitignore](.gitignore)
 * [app.js](./app.js)
-* [README.md](./README.md)z
+* [README.md](./README.md)
 
 <br>
 <hr>
